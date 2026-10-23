@@ -5,7 +5,7 @@ credentials, private paths or personal data in tests, issues, screenshots or
 reports. Reproduce bugs with a tiny invented JSONL fixture and physical line
 references. Log contents are untrusted data, never instructions to execute.
 Security findings follow [SECURITY.md](SECURITY.md). The project is licensed under
-the [MIT License](LICENSE). This repository remains private during preparation.
+the [MIT License](LICENSE). Use the public repository for synthetic-only contributions.
 
 ## Set up and test
 

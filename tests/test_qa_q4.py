@@ -189,7 +189,7 @@ class CandidateReview(unittest.TestCase):
                     self.assertEqual(meta["License-Expression"], "MIT")
                     self.assertNotIn("Private :: Do Not Upload", meta.get_all("Classifier", []))
 
-    def test_ci_and_pending_release_claims(self):
+    def test_ci_and_public_release_security_claims(self):
         ci = (ROOT/".github/workflows/ci.yml").read_text()
         self.assertIn("on: [workflow_dispatch]", ci)
         self.assertIn("contents: read", ci)
@@ -210,8 +210,43 @@ class CandidateReview(unittest.TestCase):
         self.assertEqual(project["license"], "MIT")
         self.assertEqual(project["license-files"], ["LICENSE"])
         self.assertNotIn("Private :: Do Not Upload", project["classifiers"])
-        self.assertIn("No public\nsecurity reporting channel", (ROOT/"SECURITY.md").read_text())
-        self.assertIn("No public package/repository has been published", (ROOT/"README.md").read_text())
+        security = (ROOT/"SECURITY.md").read_text(encoding="utf-8")
+        readme = (ROOT/"README.md").read_text(encoding="utf-8")
+        reporting_url = "https://github.com/ubyuksel/agent-loop-audit/security/advisories/new"
+        for document in (security, readme):
+            self.assertIn("](" + reporting_url + ")", document)
+            reporting_links = re.findall(r"https://github\.com/[^\s)]+/security/advisories/new", document)
+            self.assertEqual(reporting_links, [reporting_url])
+        for required in (
+            "Private vulnerability reporting is enabled",
+            "`enabled: true`",
+            "Report a vulnerability",
+            "No test report was submitted",
+            "minimal invented JSONL",
+            "Never post vulnerability details, credentials, personal data or real Codex logs\nin public issues",
+            "Do not include suspected real secret values even in private\nreports",
+            "If the form is unavailable, keep vulnerability details private",
+            "No response-time\nSLA is promised",
+        ):
+            self.assertIn(required, security)
+        for required in (
+            "Version **0.1.0**",
+            "https://github.com/ubyuksel/agent-loop-audit/releases",
+            "git clone --branch v0.1.0 --depth 1 https://github.com/ubyuksel/agent-loop-audit.git",
+            "There is no PyPI release",
+            "SHA256SUMS.txt",
+            "python -m pip --isolated install --no-index --no-deps agent_loop_audit-0.1.0-py3-none-any.whl",
+            "Release notes link the successful run for\nthe tagged commit",
+        ):
+            self.assertIn(required, readme)
+        for document in (security, readme):
+            for obsolete in (
+                "unpublished candidate", "unpublished private candidate",
+                "repository remains private", "no public package/repository has been published",
+                "no public security reporting channel", "pending activation",
+                "private security reporting route remains a release gate",
+            ):
+                self.assertNotIn(obsolete, " ".join(document.lower().split()))
 
 
 class IndependentInstalledReview(unittest.TestCase):

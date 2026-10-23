@@ -5,21 +5,27 @@ Audit reports exact repeated requests, repeated known failures, short cycles and
 repeated read results, with physical source-line references for human review.
 Repetition does not establish waste, intent or unnecessary execution.
 
-Version **0.1.0** is an unpublished candidate. The repository remains private.
-No public package/repository has been published. The code is licensed under the
-[MIT License](LICENSE), copyright 2026 Umut Buğra Yüksel, with explicit owner
-approval. A verified private security reporting route remains a release gate.
+Version **0.1.0** is licensed under the [MIT License](LICENSE),
+copyright 2026 Umut Buğra Yüksel. Source and distribution files are available
+through [GitHub Releases](https://github.com/ubyuksel/agent-loop-audit/releases).
+Report security issues through the [private GitHub reporting form](https://github.com/ubyuksel/agent-loop-audit/security/advisories/new).
 
 Python **3.11-3.14** is tested on Ubuntu, Windows and macOS.
-The [baseline CI run](https://github.com/ubyuksel/agent-loop-audit/actions/runs/39936840882)
-passed all 12 jobs at commit `5391ec4c17df4d951602699d28e74bf9e3b75cde`.
-That result applies to the baseline; changes require a new run. Filesystem tests
-skip when a capability is unavailable. See [compatibility](docs/COMPATIBILITY.md).
+The [CI workflow](https://github.com/ubyuksel/agent-loop-audit/actions/workflows/ci.yml)
+checks all 12 OS/Python combinations. Release notes link the successful run for
+the tagged commit. Filesystem tests skip when a capability is unavailable.
+See [compatibility](docs/COMPATIBILITY.md).
 
 ## Installation
 
-Use a supplied authorized checkout. No PyPI installation is advertised.
-Runtime dependencies are empty; building requires the pinned tools below.
+Get the source for this version:
+
+```sh
+git clone --branch v0.1.0 --depth 1 https://github.com/ubyuksel/agent-loop-audit.git
+cd agent-loop-audit
+```
+
+There is no PyPI release. Runtime dependencies are empty; building requires the pinned tools below.
 Tool installation may access the package index. Auditing and installation of an
 already built wheel need no network.
 
@@ -46,9 +52,20 @@ python3 -m venv .local-env
 ```
 
 Use any supported interpreter; the Windows example selects 3.13.
-For a supplied reviewed wheel, omit build-tool installation and building. Check
-its SHA-256 against the supplied manifest before installation. Examples stay in
-the checkout and are not installed in the wheel.
+For the prebuilt wheel, download `agent_loop_audit-0.1.0-py3-none-any.whl` and
+`SHA256SUMS.txt` from the release. Verify SHA-256 before installing: Windows
+`Get-FileHash -Algorithm SHA256 agent_loop_audit-0.1.0-py3-none-any.whl`;
+Linux `sha256sum agent_loop_audit-0.1.0-py3-none-any.whl`; macOS
+`shasum -a 256 agent_loop_audit-0.1.0-py3-none-any.whl`. Compare with that
+file's entry in `SHA256SUMS.txt`. In a venv, install from the download directory:
+
+```text
+python -m pip --isolated install --no-index --no-deps agent_loop_audit-0.1.0-py3-none-any.whl
+python -m agent_loop_audit --help
+```
+
+This omits build-tool installation and building. Examples stay in the checkout
+and are not installed in the wheel. The sdist is also available for source builds.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for tests and archive checksum generation.
 
 ## Synthetic examples

@@ -1,40 +1,31 @@
 # Security policy
 
-## Current status
+## Supported versions
 
-0.1.0 is an unpublished private candidate, not a supported public release.
-No public
-security reporting channel is currently available. No email/contact identity or
-response-time guarantee has been approved. Never post vulnerability details,
-credentials, personal data or real logs in a public issue.
+Security reports are accepted for the current 0.1.x release line. No response-time
+SLA is promised. Use an updated release when reporting a vulnerability.
 
-On 2026-10-23 the authenticated repository API confirmed PRIVATE visibility;
-`GET /repos/ubyuksel/agent-loop-audit/private-vulnerability-reporting` returned
-HTTP 404. This is not evidence of an enabled route. GitHub documents private
-vulnerability reporting for **public repositories**:
-[configuration](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository).
-Activation and availability remain a release blocker while the repository is
-private. Visibility must not change during preparation. No alternative private
-address has been invented.
+## Report privately through GitHub
 
-## Intended GitHub private reporting procedure (pending activation)
+**Private vulnerability reporting is enabled** for this public repository.
+On 2026-10-23 the authenticated GitHub API returned `enabled: true` and the public
+Advisories page displayed **Report a vulnerability**. No test report was submitted.
 
-After separately authorized publication, the administrator must enable
-**Settings > Advanced Security > Private vulnerability reporting**, verify the
-API returns `enabled: true`, and verify a researcher can see **Security >
-Advisories > Report a vulnerability**. Until verified, do not describe the route
-as available or declare public release readiness.
+Use the [private vulnerability reporting form](https://github.com/ubyuksel/agent-loop-audit/security/advisories/new):
 
-Once verified, use that private form in
-[this repository's advisories](https://github.com/ubyuksel/agent-loop-audit/security/advisories).
-See [GitHub's instructions](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/report-privately).
-Provide version/commit, minimal invented JSONL reproduction, physical lines,
-expected/actual behavior and impact. Use synthetic values only; never attach a
-real rollout or suspected secret value. The form notifies maintainers. This
-policy makes no response-time SLA. No report needs to be submitted to test setup.
+1. Sign in to GitHub, then open **Security > Advisories > Report a vulnerability**.
+2. Include the affected version/commit, impact and minimal invented JSONL
+   reproduction, with physical lines and expected/actual safe behavior.
+3. Submit the private report to notify the repository maintainers.
 
-If the button is absent, keep details private. An owner-approved private route
-is required before accepting reports; public issues are unsuitable.
+See [GitHub's reporting instructions](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/report-privately).
+Never post vulnerability details, credentials, personal data or real Codex logs
+in public issues. Do not include suspected real secret values even in private
+reports. Use synthetic values throughout. Routine non-security issues should
+also use invented fixtures. No email/contact identity has been invented here.
+
+If the form is unavailable, keep vulnerability details private. A public issue
+may ask for restoration of the reporting channel without revealing the issue.
 
 ## Threat model and limits
 
@@ -46,6 +37,6 @@ Counts/line relationships may reveal activity. Filesystem races and host comprom
 are outside complete portable protection. No zero-vulnerability or complete
 anonymization claim is made.
 
-If a real secret appears, stop release preparation and arrange owner-controlled
-rotation/revocation. Keep values out of evidence; do not automatically rewrite
-history, delete evidence or disclose the finding.
+If a real secret appears during development, stop publication and arrange
+owner-controlled rotation/revocation. Keep values out of evidence; do not
+automatically rewrite history, delete evidence or disclose the finding.

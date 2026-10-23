@@ -2,7 +2,7 @@
 
 Python target: 3.11-3.14; runtime dependencies: none. P1 provides an importable
 foundation, exact rules, partial usage accounting and fixed-safe CLI are implemented
-in the local 0.1.0 candidate. Runtime remains stdlib only.
+in version 0.1.0. Runtime remains stdlib only.
 
 Tested shapes are `session_meta`, `turn_context`, `response_item` function/custom
 requests and outputs, `event_msg` terminal/turn/token events, top-level response
@@ -74,7 +74,7 @@ passed all 12 jobs at commit `5391ec4c17df4d951602699d28e74bf9e3b75cde`:
 Ubuntu, Windows and macOS, each with Python 3.11, 3.12, 3.13 and 3.14.
 Each job builds wheel/sdist and runs the full synthetic source/distribution suite.
 This confirms those environments for that commit, not every possible OS or
-future Codex wire shape. Final changes require a new exact-commit run.
+future Codex wire shape. Release notes link the final exact-commit run for each release.
 
 Local Windows tests may skip symlink creation and open-descriptor replacement
 when unavailable. A successful job can include explicit capability skips; it
