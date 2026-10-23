@@ -1,4 +1,4 @@
-# P1 source and provenance register
+# Source and provenance register
 
 Original implementation and synthetic unittest corpus authored for this isolated
 project. No upstream source implementation was copied or vendored. No real user
@@ -19,14 +19,12 @@ No downloaded code was saved in this repository. Development source retrieval
 is distinct from application audit/tests, which use no network. Frozen planning
 references remain in ignored `.planning/` with bytes verified against the ZIP.
 
-Competitor gate: supplied research dated 2026-10-23 is current on the P1 date;
-the >30-day refresh gate is not triggered. No competitor was installed or run.
-The plan's nearest comparator pin is agent-call-graph
-`a4326ca1391e9e7e2cfebe94dd905c6565434b34`; its stated native Codex gap remains
-a planning hypothesis, not a newly measured market or exclusivity claim.
-
-Distribution name is provisional; registry name, dependency/license provenance,
-history, installed wheel and full platform validation remain later release gates.
+All seven tracked JSONL files (six fixtures and one example) are invented.
+The example and retry fixture intentionally have identical bytes. Test canaries,
+paths and identifiers are generated synthetic values, not redacted incidents.
+No third-party implementation is vendored. Build tools/actions are not runtime
+dependencies and are not bundled in the wheel. Project ownership must still be
+confirmed explicitly by the owner; development history is not legal approval.
 
 ## P4 build and action provenance (2026-10-23)
 
@@ -47,7 +45,9 @@ commit objects: actions/checkout v7.0.1 =
 6d4fd22b20465ccc0f7354476588e8df7c9ca0e0. Read-only endpoints were
 https://api.github.com/repos/actions/checkout/releases/latest and corresponding
 /git/ref/tags/v7.0.1; setup-python equivalent /releases/latest and
-/git/ref/tags/v7.1.0. No workflow has been pushed or executed.
+/git/ref/tags/v7.1.0. These pins were subsequently executed successfully in
+[baseline CI run 39936840882](https://github.com/ubyuksel/agent-loop-audit/actions/runs/39936840882)
+at commit `5391ec4c17df4d951602699d28e74bf9e3b75cde`, all 12 matrix jobs.
 
 Owning-package maintenance: P1's __init__ version and AGENTS authority note were
 updated for the owner's latest continuation/QA permission; P3's expected example

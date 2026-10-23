@@ -1,72 +1,127 @@
 # Agent Loop Audit
 
-Private local candidate **0.1.0**. Inspect one explicitly selected Codex rollout
-JSONL file offline and obtain conservative repetition/failure observations with
-physical source-line evidence. Repetition is not proof of waste or intent.
+Inspect one explicitly selected Codex rollout JSONL file offline. Agent Loop
+Audit reports exact repeated requests, repeated known failures, short cycles and
+repeated read results, with physical source-line references for human review.
+Repetition does not establish waste, intent or unnecessary execution.
 
-Python 3.11-3.14 is the target. See `evidence/RELEASE_CANDIDATE.md` for actual
-executed platform evidence; an unexecuted platform is not supported by assertion.
-Runtime uses only the Python standard library, no inference, network, accounts,
-telemetry, configuration discovery, subprocesses or third-party dependencies.
+Version **0.1.0** is an unpublished candidate. The repository remains private.
+No public package/repository has been published. MIT adoption awaits confirmation
+of the legal rights-holder; [LICENSE](LICENSE) currently grants no public
+redistribution rights. Security reporting is also a release gate.
 
-## Local installation
+Python **3.11-3.14** is tested on Ubuntu, Windows and macOS.
+The [baseline CI run](https://github.com/ubyuksel/agent-loop-audit/actions/runs/39936840882)
+passed all 12 jobs at commit `5391ec4c17df4d951602699d28e74bf9e3b75cde`.
+That result applies to the baseline; changes require a new run. Filesystem tests
+skip when a capability is unavailable. See [compatibility](docs/COMPATIBILITY.md).
 
-No public package/repository has been published. From this supplied checkout:
+## Installation
 
-```text
-python -m venv .local-env
-.local-env/Scripts/python -m pip install --no-index --no-deps dist/agent_loop_audit-0.1.0-py3-none-any.whl
-.local-env/Scripts/agent-loop-audit --help
-.local-env/Scripts/agent-loop-audit audit examples/synthetic_retry_loop.jsonl --format json
+Use a supplied authorized checkout. No PyPI installation is advertised.
+Runtime dependencies are empty; building requires the pinned tools below.
+Tool installation may access the package index. Auditing and installation of an
+already built wheel need no network.
+
+Windows PowerShell, from the checkout root:
+
+```powershell
+py -3.13 -m venv .local-env
+.\.local-env\Scripts\python.exe -m pip --isolated install build==1.6.1 setuptools==84.2.1 wheel==0.48.0 packaging==26.3 pyproject_hooks==1.3.3 colorama==0.4.6
+.\.local-env\Scripts\python.exe -B -m build --no-isolation
+.\.local-env\Scripts\python.exe -m pip --isolated install --no-index --no-deps dist/agent_loop_audit-0.1.0-py3-none-any.whl
+.\.local-env\Scripts\agent-loop-audit.exe --help
+.\.local-env\Scripts\agent-loop-audit.exe audit examples/synthetic_retry_loop.jsonl --format json
 ```
 
-On macOS/Linux use `.local-env/bin/python` and `.local-env/bin/agent-loop-audit`.
-Those commands describe the portable interface; consult recorded matrix results
-before treating them as executed platform evidence. The wheel needs no network.
+macOS / Linux, from the checkout root:
 
-## Behavior
+```sh
+python3 -m venv .local-env
+.local-env/bin/python -m pip --isolated install build==1.6.1 setuptools==84.2.1 wheel==0.48.0 packaging==26.3 pyproject_hooks==1.3.3 colorama==0.4.6
+.local-env/bin/python -B -m build --no-isolation
+.local-env/bin/python -m pip --isolated install --no-index --no-deps dist/agent_loop_audit-0.1.0-py3-none-any.whl
+.local-env/bin/agent-loop-audit --help
+.local-env/bin/agent-loop-audit audit examples/synthetic_retry_loop.jsonl --format json
+```
 
-`agent-loop-audit audit PATH [--format text|json] [--strict] [--fail-on-findings]`
-also works through `python -m agent_loop_audit`. Help/version are supported.
-ALA001 reports exact repeated requests; ALA002 repeated known terminal failures;
-ALA003 exact short cycles; ALA004 identical complete read results. All warnings
-are review candidates. Known polling, unknown outcomes, changed context/results,
-patches, ambiguous IDs and inherited histories prevent confident warnings.
+Use any supported interpreter; the Windows example selects 3.13.
+For a supplied reviewed wheel, omit build-tool installation and building. Check
+its SHA-256 against the supplied manifest before installation. Examples stay in
+the checkout and are not installed in the wheel.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for tests and archive checksum generation.
 
-The invented example produces ALA002 at call lines2/4/6 and outcome lines3/5/7.
-`examples/synthetic_retry_loop.expected.json` is generated from the executable.
-`tests/fixtures/negative_controls.jsonl` demonstrates a legitimate user boundary.
+## Synthetic examples
 
-Exit0 means a report was produced, not complete coverage. Warning flag1;
-usage/input/error2; strict partial coverage3 (priority over1); interruption130.
-V1 token accounting is always partial/unavailable, so strict audits return3.
-Reported usage is observed ledger/delta evidence, never billing, account quota,
-token costs, attributable tool usage or savings. Missing numbers remain null.
+The installed console and module have the same interface:
 
-## Boundaries and privacy
+```text
+agent-loop-audit audit examples/synthetic_retry_loop.jsonl
+agent-loop-audit audit examples/synthetic_retry_loop.jsonl --format json
+python -m agent_loop_audit audit examples/synthetic_retry_loop.jsonl --fail-on-findings
+agent-loop-audit audit tests/fixtures/negative_controls.jsonl --format json
+```
 
-One explicit regular uncompressed `.jsonl` file, opened read-only. No stdin,
-recursive discovery, URLs, database, compressed rollout or Claude support.
-Fork/subagent/history inputs suppress behavioral findings; owned response usage
-may remain observable. Nested code-mode operations remain opaque. Raw paths,
-commands/results, IDs, hashes, account/model fields and terminal escapes are
-excluded from both report modes. This is not a general-purpose anonymizer.
+Use the venv executable paths above if it is not activated.
+The invented retry example produces ALA002 at call lines 2/4/6 and outcome lines
+3/5/7. [Expected JSON](examples/synthetic_retry_loop.expected.json) is checked
+against executable output. The negative control produces no findings.
 
-Defaults: 256 MiB input, 2 MiB physical line, 100000 envelopes, 50000 request and
-pending-result identities each, 50000 ledger identities, 64-call windows, 2000
-retained findings, 20 evidence lines per array. Oversize/corrupt/unknown records
-create explicit limitations. Parent-directory races cannot be eliminated fully.
-Reading may update OS access times. stdout is the only report destination:
-**never redirect output onto the input**, because the shell may truncate it first.
+| Rule | Observation |
+| --- | --- |
+| ALA001 | Exact repeated requests (informational) |
+| ALA002 | Identical complete known terminal failures |
+| ALA003 | Exact short cycles with complete outcomes and a known failure |
+| ALA004 | Identical complete successful read results |
 
-## Development and release status
+Polling, uncertain outcomes, changed context/results, patches, ambiguous IDs and
+inherited histories limit findings. See [exact rules](docs/DETECTION_RULES.md).
 
-See CONTRIBUTING.md and docs for exact contracts and test/build commands. All
-fixtures are invented from public shape definitions; no real session log is used.
-CI is staged locally with verified action pins; it has not been remotely run.
-This project has no claimed OpenAI affiliation, adoption or measured user savings.
+| Exit | Meaning |
+| --- | --- |
+| 0 | Report produced; does not imply complete coverage |
+| 1 | `--fail-on-findings` found a warning; ALA001 alone does not trigger it |
+| 2 | Usage, input access, unsupported input or handled audit error |
+| 3 | `--strict` detected partial coverage; takes priority over exit 1 |
+| 130 | Interrupted audit |
 
-Distribution remains private. License/rightsholder approval, private security
-reporting setup, trusted full history/archive secret scanning and missing OS/Python
-matrix evidence are publication gates. LICENSE deliberately makes no MIT grant
-until owner approval; no owner identity or reporting address has been invented.
+Token accounting is always partial/unavailable, so strict audits return 3.
+Observed owned-response ledger sums or conservative cumulative deltas are **not
+billing, account quota, per-tool attribution, costs or measured savings**.
+Cached input/reasoning are included subcomponents, not additional totals.
+Missing numbers remain null. See [accounting](docs/TOKEN_ACCOUNTING.md).
+
+## Privacy and input boundaries
+
+Runtime uses only Python's standard library. It opens one explicit regular,
+uncompressed `.jsonl` input read-only and writes a fixed-schema report to stdout.
+There is no inference, network, telemetry, account/configuration discovery,
+subprocess or execution of log content. Referenced paths, URLs, parent histories
+and commands are never followed or executed.
+
+Both report modes exclude raw paths, commands/results, IDs, hashes, arbitrary
+tool names, account/model fields and terminal escapes. Counts, line relationships
+and fixed tool categories can still reveal activity patterns: review before
+sharing. This is not a general-purpose anonymizer. Raw strings exist transiently
+in memory; secure memory erasure and protection from the host/interpreter/shell
+are not promised.
+
+No stdin, recursive discovery, compressed logs, database, URL input or Claude
+log support exists. Fork/subagent/inherited histories suppress behavioral
+findings; owned response usage may remain observable. Nested code-mode is opaque.
+All fixtures/examples are invented from public format definitions.
+
+Defaults: 256 MiB input, 2 MiB physical line, 100,000 envelopes, 50,000 request
+and pending-result identities each, 50,000 ledger identities, 64-call windows,
+2,000 retained findings and 20 evidence lines per array. Corrupt/unknown/oversize
+records create explicit limitations. Filesystem races cannot be eliminated fully;
+reading may update access times. **Never redirect output onto the input**:
+the shell may truncate it before Python starts.
+
+## Project and release information
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md),
+[CHANGELOG.md](CHANGELOG.md), [provenance](docs/PROVENANCE.md) and the
+[release checklist](docs/RELEASE_CHECKLIST.md). No adoption or measured token
+savings are claimed. Agent Loop Audit is an independent project and is not
+affiliated with, sponsored by or endorsed by OpenAI.

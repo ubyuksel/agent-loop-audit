@@ -1,13 +1,13 @@
 # Maintenance
 
-Revisit the pinned Codex wire shapes monthly or when a synthetic incompatibility
-is reported; competitor evidence older than30 days requires a scoped refresh.
+Revisit the pinned Codex wire shapes when a synthetic incompatibility is reported
+and before release; any regular review cadence needs maintainer agreement.
 Do not add providers, fuzzy loop scores or pricing features without a new scope.
 Exact identity/report/counter changes require contract docs, positive and negative
 fixtures and independent affected QA. Keep developer and reviewer verdicts separate.
 
-Target weekly voluntary issue/security triage after a reporting route is approved;
-this is an operational proposal, not an owner-accepted SLA. Rebuild only when
+Issue/security triage and response targets need maintainer approval; no response
+SLA is promised. Rebuild only when
 artifact inputs change. Verify source/artifact hashes before reusing evidence.
 Version CLI/report contracts and document pre-1.0 breaking behavior explicitly.
 

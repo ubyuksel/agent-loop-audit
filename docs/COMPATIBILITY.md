@@ -67,15 +67,17 @@ cannot be eliminated portably. Consumers must check reader state again after its
 context closes, since that check can detect later changes. OS access-time changes are possible. No content
 writes, locks, following embedded paths, subprocesses or runtime network exist.
 
-Verified locally: Windows / CPython 3.13.15 only. Symlink creation and replacement
-of an open descriptor were unavailable in this environment and are explicit test
-skips. Linux, macOS and other Python versions remain UNVERIFIED. Independent Q1
-has passed locally through Q3; Q4/release evidence is recorded separately.
-Runtime format claims remain limited to synthetic tested shapes. Final executed
-platform results supersede this initial P1 environment note; see candidate evidence.
+## Executed platform evidence
 
-P4 executed Windows CPython3.13.15 and CPython3.12.14: each complete source suite
-112 tests, 108 PASS / 4 explicit OS-capability SKIP. Both included clean temporary
-wheel installation, console/module help and exact synthetic JSON parity with
-network/process guards. These are 2 tested Windows interpreter environments;
-the other10 intended OS/Python cells remain unexecuted. No remote CI ran.
+The baseline [GitHub Actions run 39936840882](https://github.com/ubyuksel/agent-loop-audit/actions/runs/39936840882)
+passed all 12 jobs at commit `5391ec4c17df4d951602699d28e74bf9e3b75cde`:
+Ubuntu, Windows and macOS, each with Python 3.11, 3.12, 3.13 and 3.14.
+Each job builds wheel/sdist and runs the full synthetic source/distribution suite.
+This confirms those environments for that commit, not every possible OS or
+future Codex wire shape. Final changes require a new exact-commit run.
+
+Local Windows tests may skip symlink creation and open-descriptor replacement
+when unavailable. A successful job can include explicit capability skips; it
+does not prove every filesystem oracle executed. Runtime format claims remain
+limited to synthetic tested shapes. Independent Q1-Q4 evidence is maintained
+locally; development tests do not substitute for independent review.
