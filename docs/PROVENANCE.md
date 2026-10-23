@@ -2,9 +2,10 @@
 
 Original implementation and synthetic unittest corpus authored for this isolated
 project. No upstream source implementation was copied or vendored. No real user
-rollout, account data or credentials were used. MIT/license release review remains
-a manual gate. LICENSE is explicitly pending owner/rightsholder approval; the
-candidate makes no MIT grant and uses LicenseRef-Private-Candidate-Pending.
+rollout, account data or credentials were used. On 2026-10-23 the owner explicitly
+approved the standard MIT License and the copyright notice
+`Copyright (c) 2026 Umut Buğra Yüksel`, including MIT package metadata.
+LICENSE now contains that text; no third-party source was relicensed.
 
 Protocol shape references, pinned by the supplied plan to OpenAI Codex commit
 `4610b573e59b211bf9430cf6ffb97cfb84623090` (2026-10-23):
@@ -24,7 +25,8 @@ The example and retry fixture intentionally have identical bytes. Test canaries,
 paths and identifiers are generated synthetic values, not redacted incidents.
 No third-party implementation is vendored. Build tools/actions are not runtime
 dependencies and are not bundled in the wheel. Project ownership must still be
-confirmed explicitly by the owner; development history is not legal approval.
+confirmed explicitly by the owner; that confirmation was obtained for this
+candidate. Development history alone is not legal approval.
 
 ## P4 build and action provenance (2026-10-23)
 

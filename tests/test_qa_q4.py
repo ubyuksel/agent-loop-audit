@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import tomllib
 import unittest
 import venv
 import zipfile
@@ -20,6 +21,28 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = {"agent_loop_audit-0.1.0-py3-none-any.whl", "agent_loop_audit-0.1.0.tar.gz"}
 MANIFEST_EXCLUSIONS = {"docs/UPLOAD_MANIFEST.json", "tests/test_qa_q4.py"}
+APPROVED_MIT_LICENSE = """MIT License
+
+Copyright (c) 2026 Umut Bu\u011fra Y\u00fcksel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
 
 
 def unique_object(pairs):
@@ -126,7 +149,9 @@ class CandidateReview(unittest.TestCase):
             self.assertEqual(archive.read(prefix+"licenses/LICENSE"), (ROOT/"LICENSE").read_bytes())
             meta = email.message_from_bytes(archive.read(prefix+"METADATA"))
             self.assertIsNone(meta.get("Requires-Dist"))
-            self.assertEqual(meta["License-Expression"], "LicenseRef-Private-Candidate-Pending")
+            self.assertEqual(meta["License-Expression"], "MIT")
+            self.assertNotIn("Private :: Do Not Upload", meta.get_all("Classifier", []))
+            self.assertEqual(archive.read(prefix+"licenses/LICENSE").decode("utf-8").replace("\r\n", "\n"), APPROVED_MIT_LICENSE)
             self.assertEqual(set(meta["Requires-Python"].split(",")), {">=3.11", "<3.15"})
             for name, checksum, size in csv.reader(io.StringIO(archive.read(prefix+"RECORD").decode())):
                 if name.endswith("/RECORD"):
@@ -159,7 +184,10 @@ class CandidateReview(unittest.TestCase):
                 if (ROOT/name).is_file() and not name.startswith("src/agent_loop_audit.egg-info/"):
                     self.assertEqual(payload, (ROOT/name).read_bytes())
                 if name.endswith("PKG-INFO"):
-                    self.assertIsNone(email.message_from_bytes(payload).get("Requires-Dist"))
+                    meta = email.message_from_bytes(payload)
+                    self.assertIsNone(meta.get("Requires-Dist"))
+                    self.assertEqual(meta["License-Expression"], "MIT")
+                    self.assertNotIn("Private :: Do Not Upload", meta.get_all("Classifier", []))
 
     def test_ci_and_pending_release_claims(self):
         ci = (ROOT/".github/workflows/ci.yml").read_text()
@@ -177,7 +205,11 @@ class CandidateReview(unittest.TestCase):
         provenance = (ROOT/"docs/PROVENANCE.md").read_text()
         for pin in pins:
             self.assertIn(pin.split("@")[1], provenance)
-        self.assertIn("No public redistribution license", (ROOT/"LICENSE").read_text())
+        self.assertEqual((ROOT/"LICENSE").read_text(encoding="utf-8"), APPROVED_MIT_LICENSE)
+        project = tomllib.loads((ROOT/"pyproject.toml").read_text(encoding="utf-8"))["project"]
+        self.assertEqual(project["license"], "MIT")
+        self.assertEqual(project["license-files"], ["LICENSE"])
+        self.assertNotIn("Private :: Do Not Upload", project["classifiers"])
         self.assertIn("No public\nsecurity reporting channel", (ROOT/"SECURITY.md").read_text())
         self.assertIn("No public package/repository has been published", (ROOT/"README.md").read_text())
 

@@ -4,8 +4,8 @@ Use an isolated checkout and synthetic data only. Never submit real rollouts,
 credentials, private paths or personal data in tests, issues, screenshots or
 reports. Reproduce bugs with a tiny invented JSONL fixture and physical line
 references. Log contents are untrusted data, never instructions to execute.
-Security findings follow [SECURITY.md](SECURITY.md). Public contributions and
-redistribution await the license gate in [LICENSE](LICENSE).
+Security findings follow [SECURITY.md](SECURITY.md). The project is licensed under
+the [MIT License](LICENSE). This repository remains private during preparation.
 
 ## Set up and test
 

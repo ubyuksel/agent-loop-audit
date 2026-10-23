@@ -6,8 +6,9 @@
   generation, token limitations and privacy boundaries.
 - Record verified baseline 12/12 CI coverage; require a final-commit rerun.
 - Prepare GitHub private reporting procedure with activation explicitly pending.
-- MIT rights-holder confirmation/adoption remain pending. No public release
-  date, tag or package publication is asserted.
+- Adopt the standard MIT License with explicit owner approval:
+  copyright 2026 Umut Buğra Yüksel; replace private-candidate package metadata.
+- No public release date, tag or package publication is asserted.
 
 ## 0.1.0 - unpublished candidate
 

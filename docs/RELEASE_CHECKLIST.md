@@ -3,9 +3,9 @@
 The repository remains PRIVATE throughout preparation. Tests do not authorize
 visibility changes, tags/releases, PyPI uploads or any other publication.
 
-- [ ] Confirm legal rights-holder explicitly; review provenance; adopt standard
-  MIT LICENSE with year 2026 only after owner approval. Then replace pending
-  metadata/private classifier; independently update license assertions.
+- [x] Owner explicitly approved standard MIT LICENSE with copyright year 2026
+  and rights-holder Umut Buğra Yüksel. Provenance reviewed; MIT metadata applied
+  and private classifier removed. Independent license assertions must verify it.
 - [ ] Verify an approved private reporting route. GitHub's feature applies to
   public repositories; the private endpoint currently returns 404. SECURITY.md
   documents a pending procedure, not an available route. This is a blocker:

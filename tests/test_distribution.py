@@ -41,7 +41,10 @@ class DistributionTests(unittest.TestCase):
             metadata=email.message_from_bytes(archive.read("agent_loop_audit-0.1.0.dist-info/METADATA"))
             self.assertIsNone(metadata.get("Requires-Dist"))
             self.assertEqual(metadata["Version"],"0.1.0")
-            self.assertEqual(metadata["License-Expression"],"LicenseRef-Private-Candidate-Pending")
+            self.assertEqual(metadata["License-Expression"],"MIT")
+            self.assertNotIn("Private :: Do Not Upload", metadata.get_all("Classifier", []))
+            self.assertEqual(archive.read("agent_loop_audit-0.1.0.dist-info/licenses/LICENSE"),
+                             (ROOT/"LICENSE").read_bytes())
         with tarfile.open(self.sdist,"r:gz") as archive:
             for member in archive.getmembers():
                 path=PurePosixPath(member.name)

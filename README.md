@@ -6,9 +6,9 @@ repeated read results, with physical source-line references for human review.
 Repetition does not establish waste, intent or unnecessary execution.
 
 Version **0.1.0** is an unpublished candidate. The repository remains private.
-No public package/repository has been published. MIT adoption awaits confirmation
-of the legal rights-holder; [LICENSE](LICENSE) currently grants no public
-redistribution rights. Security reporting is also a release gate.
+No public package/repository has been published. The code is licensed under the
+[MIT License](LICENSE), copyright 2026 Umut Buğra Yüksel, with explicit owner
+approval. A verified private security reporting route remains a release gate.
 
 Python **3.11-3.14** is tested on Ubuntu, Windows and macOS.
 The [baseline CI run](https://github.com/ubyuksel/agent-loop-audit/actions/runs/39936840882)
