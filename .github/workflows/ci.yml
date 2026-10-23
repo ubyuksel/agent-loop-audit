@@ -1,3 +1,4 @@
+# Manual-only synthetic checks; no publication or credentials.
 name: synthetic-local-contracts
 on: [workflow_dispatch]
 permissions:

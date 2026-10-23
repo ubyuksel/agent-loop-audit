@@ -1,7 +1,7 @@
 {
   "files": {
     ".gitattributes": "d280af86c00a9a3eac05e949abf5c8533e55e47796a9d6cac75cd86d172d408d",
-    ".github/workflows/ci.yml": "054a0815f7885eb00f90165cd2c971953536319f02de191a98316c07acf78abe",
+    ".github/workflows/ci.yml": "11f8154c48a2b2d0fd90abf0ce3e8b673da8e16a51f82c59ce63f8358f7a1e4e",
     ".gitignore": "64a1b366576a2c95daf7b54dae3ccd9922e31ab08c5c8820896f40f09c59934d",
     "AGENTS.md": "81f56e995c11a4ac86325c7917f5478edd038bf7116497f90c33ac7eb049de99",
     "CHANGELOG.md": "70b502103d25bacf3fcc34c9aeb3d29943f794f684ef4b672562bd193da95d99",
@@ -56,5 +56,5 @@
   "hash_algorithm": "sha256",
   "normalization": "crlf-to-lf",
   "schema_version": 1,
-  "source_digest": "7e1b665bc0f41532f2f7309fd3f0e4fed005e3b4c23930e6b1d99dbd122f54b0"
+  "source_digest": "55dfc5f33e0631d639b74d0e192de6fb0f01dd70c7fc3100bf8f84ddb4ddf363"
 }
