@@ -1,0 +1,78 @@
+{
+  "coverage": {
+    "accounting": "unavailable",
+    "analysis_truncated": false,
+    "behavior": "supported",
+    "complete": false,
+    "findings_truncated": false,
+    "input_changed": false,
+    "omitted_candidates": 0,
+    "parsed_records": 7,
+    "reason_codes": [],
+    "skipped_records": 0,
+    "unknown_records": 0
+  },
+  "diagnostics": [],
+  "findings": [
+    {
+      "call_lines": [
+        2,
+        4,
+        6
+      ],
+      "caveats": [
+        "Repetition does not establish waste.",
+        "External state changes may be unlogged."
+      ],
+      "confidence": "review_candidate",
+      "evidence_status": "complete",
+      "evidence_truncated": false,
+      "id": "F0001",
+      "level": "warning",
+      "occurrences": 3,
+      "outcome_lines": [
+        3,
+        5,
+        7
+      ],
+      "recommendation": "Inspect the first failure and its prerequisite before repeating the same operation.",
+      "rule_id": "ALA002",
+      "span": [
+        2,
+        6
+      ],
+      "title": "Repeated known failure review candidate",
+      "tool_label": "exec_command"
+    }
+  ],
+  "rules_version": "1.0.0",
+  "schema_version": "1.0",
+  "source": {
+    "cli_version": null,
+    "format": "codex_rollout_jsonl",
+    "label": "input_1"
+  },
+  "summary": {
+    "ambiguous_or_invalid": 0,
+    "distinct_observed_requests": 3,
+    "linked_complete_outcomes": 3,
+    "total_findings": 1,
+    "uncorrelated_requests": 0
+  },
+  "token_usage": {
+    "complete": false,
+    "coverage": "unavailable",
+    "evidence_truncated": false,
+    "excluded_records": 0,
+    "interval_lines": [],
+    "last_reported_counter": null,
+    "mode": "legacy_observed_deltas",
+    "observations": 0,
+    "observed": null,
+    "reason_codes": [
+      "observed_only",
+      "usage_unavailable"
+    ]
+  },
+  "tool_version": "0.1.0"
+}

@@ -1,0 +1,6 @@
+{"timestamp": "2026-01-01T00:00:00Z", "type": "session_meta", "payload": {"id": "synthetic-thread", "cwd": "/synthetic", "source": "cli"}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "event_msg", "payload": {"type": "token_count", "info": {"total_token_usage": {"input_tokens": 100, "output_tokens": 0, "total_tokens": 100}}}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "event_msg", "payload": {"type": "token_count", "info": {"total_token_usage": {"input_tokens": 200, "output_tokens": 0, "total_tokens": 200}}}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "token_usage_record", "payload": {"thread_id": "synthetic-thread", "response_id": "a", "usage": {"input_tokens": 40, "output_tokens": 0, "total_tokens": 40}}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "token_usage_record", "payload": {"thread_id": "synthetic-thread", "response_id": "a", "usage": {"input_tokens": 40, "output_tokens": 0, "total_tokens": 40}}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "token_usage_record", "payload": {"thread_id": "synthetic-thread", "response_id": "b", "usage": {"input_tokens": 60, "output_tokens": 0, "total_tokens": 60}}}

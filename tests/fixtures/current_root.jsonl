@@ -1,0 +1,8 @@
+{"timestamp":"2026-01-01T00:00:00Z","type":"session_meta","payload":{"id":"fixture-thread","cwd":"/synthetic","source":"cli","cli_version":"0.0.1","session_id":"fixture-thread"},"ordinal":0}
+{"timestamp":"2026-01-01T00:00:00Z","type":"turn_context","payload":{"turn_id":"turn-a","cwd":"/synthetic"},"ordinal":1}
+{"timestamp":"2026-01-01T00:00:00Z","type":"response_item","payload":{"type":"function_call","call_id":"call-a","name":"exec_command","arguments":"{\"cmd\":\"python -m unittest\"}","namespace":"functions"},"ordinal":2}
+{"timestamp":"2026-01-01T00:00:00Z","type":"response_item","payload":{"type":"function_call_output","call_id":"call-a","output":[{"type":"input_text","text":"invented result"}]},"metadata":{"origin":"synthetic-only"},"ordinal":3}
+{"timestamp":"2026-01-01T00:00:00Z","type":"response_item","payload":{"type":"custom_tool_call","call_id":"call-b","name":"apply_patch","input":"invented patch","namespace":"functions"},"ordinal":4}
+{"timestamp":"2026-01-01T00:00:00Z","type":"response_item","payload":{"type":"custom_tool_call_output","call_id":"call-b","output":"invented patch result"},"ordinal":5}
+{"timestamp":"2026-01-01T00:00:00Z","type":"token_usage_record","payload":{"thread_id":"fixture-thread","session_id":"fixture-thread","turn_id":"turn-a","response_id":"response-a","usage":{"input_tokens":10,"output_tokens":2,"total_tokens":12}},"ordinal":6}
+{"timestamp":"2026-01-01T00:00:00Z","type":"event_msg","payload":{"type":"turn_complete","turn_id":"turn-a"},"ordinal":7}

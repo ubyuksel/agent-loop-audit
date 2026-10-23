@@ -1,0 +1,7 @@
+{"timestamp": "2026-01-01T00:00:00Z", "type": "session_meta", "payload": {"id": "synthetic-thread", "cwd": "/synthetic", "source": "cli"}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "response_item", "payload": {"type": "function_call", "call_id": "0", "name": "exec_command", "arguments": "{\"cmd\": \"python -m unittest\"}"}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "response_item", "payload": {"type": "function_call_output", "call_id": "0", "output": "Wall time: 0.1 seconds\nExit code: 1\nOutput:\ninvented result"}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "response_item", "payload": {"type": "function_call", "call_id": "1", "name": "exec_command", "arguments": "{\"cmd\": \"python -m unittest\"}"}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "response_item", "payload": {"type": "function_call_output", "call_id": "1", "output": "Wall time: 0.1 seconds\nExit code: 1\nOutput:\ninvented result"}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "response_item", "payload": {"type": "function_call", "call_id": "2", "name": "exec_command", "arguments": "{\"cmd\": \"python -m unittest\"}"}}
+{"timestamp": "2026-01-01T00:00:00Z", "type": "response_item", "payload": {"type": "function_call_output", "call_id": "2", "output": "Wall time: 0.1 seconds\nExit code: 1\nOutput:\ninvented result"}}

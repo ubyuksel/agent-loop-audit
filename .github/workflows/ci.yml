@@ -1,0 +1,27 @@
+name: synthetic-local-contracts
+on: [workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.11', '3.12', '3.13', '3.14']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Reviewed build tools only
+        run: python -m pip install --disable-pip-version-check build==1.6.1 setuptools==84.2.1 wheel==0.48.0 packaging==26.3 pyproject_hooks==1.3.3 colorama==0.4.6
+      - name: Synthetic source and local distribution tests
+        run: python -B -m unittest discover -s tests -t . -v

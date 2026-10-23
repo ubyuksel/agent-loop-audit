@@ -1,0 +1,3 @@
+{"timestamp":"2026-01-01T00:00:00Z","type":"session_meta","payload":{"id":"fixture-thread","cwd":"/synthetic","source":{"subagent":{"parent_thread_id":"synthetic-parent"}},"cli_version":"0.0.1","session_id":"synthetic-parent","history_base":{"path":"/synthetic/not-opened.jsonl"}}}
+{"timestamp":"2026-01-01T00:00:00Z","type":"response_item","payload":{"type":"function_call","call_id":"call-a","name":"exec_command","arguments":"{\"cmd\":\"cat example.txt\"}"}}
+{"timestamp":"2026-01-01T00:00:00Z","type":"response_item","payload":{"type":"function_call_output","call_id":"call-a","output":"invented inherited result"}}

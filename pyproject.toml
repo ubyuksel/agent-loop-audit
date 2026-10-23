@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools==84.2.1", "wheel==0.48.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-loop-audit"
+version = "0.1.0"
+description = "Offline native Codex rollout audit foundation"
+readme = "README.md"
+license = "LicenseRef-Private-Candidate-Pending"
+license-files = ["LICENSE"]
+requires-python = ">=3.11,<3.15"
+dependencies = []
+classifiers = [
+  "Private :: Do Not Upload",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Operating System :: OS Independent",
+]
+
+[project.scripts]
+agent-loop-audit = "agent_loop_audit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+include-package-data = false
